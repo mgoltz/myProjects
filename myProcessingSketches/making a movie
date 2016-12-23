@@ -1,0 +1,9 @@
+
+- converting processing video to mp4, change time (t) and quality (q)
+
+	$ ffmpeg -f image2 -framerate 30 -i frames/line-%06d.tiff -s 600x600 -q:v 6 -vcodec mpeg4 -r 30 -t 00:00:35 christmasVideo2.mp4
+
+
+- adding audio track
+
+	$ ffmpeg -i christmasVideo2.mp4 -i song1.m4a -c copy -map 0:v -map 1:a christmasAV.mp4
