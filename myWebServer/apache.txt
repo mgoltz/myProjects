@@ -1,0 +1,10 @@
+
+sudo /etc/init.d/apache2 start
+sudo /etc/init.d/apache2 stop
+sudo /etc/init.d/apache2 reset
+
+mysql pass = 0rcasfly
+phpmyadmin pass = 0rcasfly
+
+localhost
+localhost/phpmyadmin/

@@ -217,7 +217,7 @@ public final class Billiards extends SimulationFrame {
                 jbtReset.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         
-                        removeFixture(squareL);
+                        
                         //simulation = new Billiards();
                         //simulation.run();
                         //simulation.pause();
