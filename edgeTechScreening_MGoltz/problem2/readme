@@ -1,0 +1,77 @@
+readme
+problem 2 - EdgeTech
+Michael Goltz
+Candidate for Software Engineer
+
+This readme file describes the solution, design tradeoffs,
+	assumptions made, and how to compile and run.
+
+Files:
+	problem2.py
+
+Solution:
+----------------------------------------------------------------------------------------
+	The solution provided contains three versions of going about solving this problem.
+	To determine if a number has a five (5), a multiplied result is cast as a string
+	and each element of the string is evaluated by taking the modulus of the casted
+	integer element.
+
+	Solution 1)	The first is a naive way which is not optimal at all. It contains two
+				for loops to process each cell multiplication. For each row it creates a
+				string of multiplication results and prints it out.
+	Solution 2)	Another approach using only a single array but same complexity
+
+	Solution 3) This method saves the results of the upper diagonal to be looked up for
+				the bottom diagonal half.
+
+
+Design Tradeoffs:
+----------------------------------------------------------------------------------------
+	Memory and Time complexity of solution 1, 2, 3 is O(n^2) as it contains two loops or
+	a single loop of size (n*n). For a tradeoff in solution 3, space is acquired to save
+	results verse calculating the results. To improve this, intermediate results could be
+	saved at the expense of more space being acquired.
+
+
+Assumptions Made:
+----------------------------------------------------------------------------------------
+	Computers are designed to perform calculations so a simple approach is sufficent to
+	save space. If timing is an issue the intermediate results can be saved as mentioned
+	before.
+
+
+How to Compile and Run:
+----------------------------------------------------------------------------------------
+	The solution provided was tested in a linux environment using python v2.7.6
+	Python script accepts one parameter N = size of Multiplication Table as an integer
+	
+	$ python problem1.py 5
+
+
+Results:
+----------------------------------------------------------------------------------------
+	Solution 1
+		1   2   3   4   k
+		2   4   6   8  10
+		3   6   9  12   k
+		4   8  12  16  20
+		k  10   k  20   k
+
+	Solution 2
+		1   2   3   4   k  
+		2   4   6   8  10  
+		3   6   9  12   k  
+		4   8  12  16  20  
+		k  10   k  20   k  
+
+	Solution 3
+		1   2   3   4   k
+		2   4   6   8  10
+		3   6   9  12   k
+		4   8  12  16  20
+		k  10   k  20   k
+
+	Saved results
+	['1', '2', '3', '4', 'k', '4', '6', '8', '10', '9', '12', 'k', '16', '20', 'k']
+
+END OF readme

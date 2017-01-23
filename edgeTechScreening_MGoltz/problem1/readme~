@@ -1,0 +1,195 @@
+readme
+problem 1 - EdgeTech
+Michael Goltz
+Candidate for Software Engineer
+
+This readme file describes the solution, design tradeoffs,
+	assumptions made, and how to compile and run.
+
+Files:
+	main_LinkedList.cpp		// main file to test linked list implementation
+	main_Hash.cpp			// main file to test hash implementation
+
+	Person_LinkedList.cpp
+	Person_LinkedList.h 	// contains the data structure seen below
+
+	Person_HashTable.cpp
+	Person_HashTable.h
+
+	familyTree.png 			// image of small family tree used for testing
+
+Solution:
+----------------------------------------------------------------------------------------
+	This folder contains two solutions for going about solving this problem. There are
+	a few ways to create a family tree. As discussed in design tradeoffs.
+
+	Solution 1)	This solution strictly uses a linked list to connect all people. Then as
+				people are inserted into the list they can be connected to other people.
+				The connections maintained include parents and children. The linked list
+				provides a dynamic way to add a person and traverse the relationships.
+
+	Solution 2)	This solution uses a hash table of linked lists of people with the same
+				first name initial. To save time in searching as a tradeoff of space the
+				people are placed into a hash table by hashing their first name initial
+				to get the index of a correspond bucket. There are 13 buckets to represent
+				two initials per bucket, i.e. (a,b) -> bucket1, (c,d) -> bucket2, for the 
+				full alphabet. From there a person is inserted into the linked list
+				pertaining to that bucket or searched.
+
+	Data structure:
+		struct Person
+		{
+			string keyName;
+			bool isAlive;
+			bool gender;
+
+			Person * next;
+			vector<Person *> parents;
+			vector<Person *> children;
+		};
+
+
+Design Tradeoffs:
+----------------------------------------------------------------------------------------
+	There are a few ways to create a family tree. "One might encompass all direct
+	descendants of a single figure, or all known ancestors of a living person. Another
+	might include all members of a particular surname (e.g. male-line descendants).
+
+	Assuming no common ancestor, an ancestry chart is a perfect binary tree, as each
+	person has exactly one mother and one father, for two parents; these thus have a
+	regular structure
+
+	A descendancy chart, on the other hand, does not in general have a regular structure,
+	as a person can have any number of children, or none at all." My method went
+	about representing a descendancy graph. This decsion came from the requirments which
+	specified certain questions that hinted to this structure. One could not have
+	multiple children in an ancestry graph and if we were to query information about an
+	uncle or aunt the information could not be provided. Hence the descendancy graph.
+
+	For small families a linked list will work well as time searching is not of the
+	essence. To save time for a tradeoff of space the hash table method can be used.
+
+	A linked list takes constant time to insert, delete, and O(n) to search. The hash
+	table reduces the search time significantly to 1/10 of n, based on statistics of
+	name distribution.
+
+	Linked list seems to be a better choice than arrays despite it taking up more room
+	for the storage of pointers. It is dynamic verse arrays allowing the tree to grow.
+
+
+
+Assumptions Made:
+----------------------------------------------------------------------------------------
+	A persons first name is unique, whoever this is not true in real life, it can be
+	remedied by adding other attributes such as last name. Although some family trees
+	are small some can be large and searching the list for a person can take O(n) time.
+
+
+
+How to Compile and Run:
+----------------------------------------------------------------------------------------
+	The solutions provided were tested in a linux environment with g++ v4.8.4
+
+	Compiling the Linked List version:
+		$ g++ -std=c++11 -o main_LinkedList main_LinkedList.cpp Person_LinkedList.cpp
+		$ ./main_LinkedList
+
+	Compiling the Hash Linked List version:
+		$ g++ -std=c++11 -o main_Hash main_Hash.cpp Person_LinkedList.cpp Person_HashTable.cpp
+		$ ./main_Hash
+
+
+Results:
+----------------------------------------------------------------------------------------
+	Linked List
+	{ Flo, Louis, Dave, Monica, Lorelei, Randel, Bob, Michael, Sarah, Brian, Peter, Jerrie, Francis }
+
+
+	Michael's Parents: 	{ Lorelei, Randel }
+	Lorelei's Parents: 	{ Dave, Monica }
+	Flo's parents are unknown.
+
+	Lorelei's Children: 	{ Michael, Brian, Sarah }
+	Bob's Children: 	{ Brian }
+
+	Michael's Grandparents: 	{ Dave, Monica, Louis, Flo }
+
+
+	Michael's Siblings: 	{ Brian, Sarah }
+	Sarah's Siblings: 	{ Michael, Brian,  }
+
+	Sarah's Father is deceased.
+	Sarah's Mother is alive.
+	Flo parents are unknown.
+
+	Brian's Grandmother Monica is deceased.
+	Brian's Grandfather Dave is alive.
+	Monica's parents are unknown.
+	Brian's grandparent Sue does not exist.
+
+	Michael's has atleast an Uncle Francis
+	Michael's has atleast an Aunt Jerrie
+----------------------------------------------------------------------------------------
+
+	Hash Table:
+	Bucket 1: 
+	{ Bob, Brian }
+
+	Bucket 2: 
+	{ Dave }
+
+	Bucket 3: 
+	{ Flo, Francis }
+
+	Bucket 4: 
+	{ }
+	Bucket 5: 
+	{ Jerrie }
+
+	Bucket 6: 
+	{ Louis, Lorelei }
+
+	Bucket 7: 
+	{ Monica, Michael }
+
+	Bucket 8: 
+	{ Peter }
+
+	Bucket 9: 
+	{ Randel }
+
+	Bucket 10: 
+	{ Sarah }
+
+	Bucket 11: 
+	{ }
+	Bucket 12: 
+	{ }
+	Bucket 13: 
+	{ }
+
+	Michael's Parents: 	{ Lorelei, Randel }
+	Lorelei's Parents: 	{ Dave, Monica }
+	Flo's parents are unknown.
+
+	Lorelei's Children: 	{ Michael, Brian, Sarah }
+	Bob's Children: 	{ Brian }
+
+	Michael's Grandparents: 	{ Dave, Monica, Louis, Flo }
+
+	Michael's Siblings: 	{ Brian, Sarah }
+	Sarah's Siblings: 	{ Michael, Brian,  }
+
+	Sarah's Father is deceased.
+	Sarah's Mother is alive.
+	Flo parents are unknown.
+
+	Brian's Grandmother Monica is deceased.
+	Brian's Grandfather Dave is alive.
+	Monica's parents are unknown.
+	Brian's grandparent Sue does not exist.
+
+	Michael's has atleast an Uncle Francis
+	Michael's has atleast an Aunt Jerrie
+
+END OF readme
